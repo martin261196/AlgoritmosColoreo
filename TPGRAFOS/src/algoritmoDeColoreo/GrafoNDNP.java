@@ -3,17 +3,19 @@ package algoritmoDeColoreo;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import clasesUtiles.MatrizSimetrica;
+import clasesUtiles.Nodo;
 
 public class GrafoNDNP {
 	
-	private int [] secuencia;
+	private ArrayList<Nodo> nodos;
 	private int [] colorPorNodo;
 	private MatrizSimetrica matrizAd;
 	
-	private int nodos, cantidadColores, cantidadAristas, porcAd, grMax, grMin;
+	private int cantidadNodos, cantidadColores, cantidadAristas, porcAd, grMax, grMin;
 	
 	public void colorearSecuenciaMatula(String pathGrafo) {
 		generarSecuenciaMatula();
@@ -32,6 +34,8 @@ public class GrafoNDNP {
 	
 	private void colorear() {
 		
+		
+		
 	}
 	
 	private void leerArchivoIn(String nombreArchivo) {
@@ -42,15 +46,16 @@ public class GrafoNDNP {
 		} catch (FileNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
-		this.nodos = sc.nextInt();
+		this.cantidadNodos = sc.nextInt();
 		this.cantidadAristas = sc.nextInt();
 		this.porcAd = sc.nextInt(); 
 		this.grMax = sc.nextInt();
 		this.grMin = sc.nextInt();
 		
-		this.secuencia = new int [this.nodos];
-		this.colorPorNodo = new int [this.nodos];
-		this.matrizAd = new MatrizSimetrica(this.nodos);
+		this.nodos = new ArrayList<>();
+		
+		this.colorPorNodo = new int [this.cantidadNodos];
+		this.matrizAd = new MatrizSimetrica(this.cantidadNodos);
 		
 		for(int i = 0; i < this.cantidadAristas; i++) {
 			matrizAd.set(1, sc.nextInt(), sc.nextInt());
@@ -64,9 +69,9 @@ public class GrafoNDNP {
 		try {
 			pw = new PrintWriter(new File("C:\\Users\\Florencia\\Documents\\Programacion Avanzada"
 					+ "\\TPGRAFOS\\AlgoritmosColoreo\\TPGRAFOS\\Resultados Coloreo\\" + nombreArchivo + ".out"));
-			pw.println(this.nodos + " " + this.cantidadColores + " " + this.cantidadAristas 
+			pw.println(this.cantidadNodos + " " + this.cantidadColores + " " + this.cantidadAristas 
 					+ " " + this.porcAd + " " + this.grMax + " " + this.grMin);
-			for(int i = 0 ; i < this.nodos ; i++) {
+			for(int i = 0 ; i < this.cantidadNodos ; i++) {
 				pw.println(i + " " + this.colorPorNodo[i]);
 			}
 		} catch (FileNotFoundException e) {
@@ -76,23 +81,7 @@ public class GrafoNDNP {
 	}
 	
 	private void generarSecuenciaMatula() {
-		
-		int i, j;
-		for(i = 0 ; i < this.nodos ; i++) {
-			for(j = 0 ; j < this.nodos ; j++) {
-				this.secuencia[i] = this.matrizAd.get(i, j);
-			}
-		}
-		
-		for (i = 0; i < this.secuencia.length; i++) {
-	        for (j = 0; j < this.secuencia.length-i-1; j++) {
-	            if(this.secuencia[i] < this.secuencia[i+1]){
-	                int aux = this.secuencia[i+1];
-	                this.secuencia[i+1] = this.secuencia[i];
-	                this.secuencia[i] = aux;
-	            }
-	        }
-	    }
+
 		
 		
 		// el vector secuencia llenarlo con los grados de cada nodo recorriendo la matriz de adyacencia.
