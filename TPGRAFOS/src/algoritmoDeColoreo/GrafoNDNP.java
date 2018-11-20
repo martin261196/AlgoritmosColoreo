@@ -18,57 +18,86 @@ public class GrafoNDNP {
 	
 	private int cantidadNodos, cantidadColores, cantidadAristas, porcAd, grMax, grMin;
 	
-	public void colorearSecuenciaMatula(String pathGrafo) {
+	public int colorearSecuenciaMatula(String pathGrafo) {
 		leerArchivoIn(pathGrafo);
 		generarSecuenciaMatula();
 		colorear();
 		escribirArchivoOut(pathGrafo);
+		return this.cantidadColores;
 	}
 	
-	public void colorearSecuenciaWelshPowell(String pathGrafo) {
+	public int colorearSecuenciaWelshPowell(String pathGrafo) {
 		leerArchivoIn(pathGrafo);
 		generarSecuenciaWelshPowell();
 		colorear();
 		escribirArchivoOut(pathGrafo);
+		return this.cantidadColores;
 	}
 	
-	public void colorearSecuenciaAleatoria(String pathGrafo) {
+	public int colorearSecuenciaAleatoria(String pathGrafo) {
 		leerArchivoIn(pathGrafo);
 		generarSecuenciaAleatoria();
 		colorear();
 		escribirArchivoOut(pathGrafo);
+		return this.cantidadColores;
 	}
 	
 	private void colorear() {
 		
-//		tengo la lista de nodos (numero de nodo y grado)
-//		tengo un vector del color por nodo
-//		
-//		cant de colores en 0
-//		posicion del primero sin pintar = 0;
-//		
-//		while(mientras haya nodos sin pintar) {
-//			cant de colores ++
-//			
-//			poner cant de colores en vector de color [posicion del primero sin pintar] // el primero siempre lo pinto
-//			ultimo pintado es el nodo que pinte arriba
-//			nodos pintados ++
-//			
-//			for(i = posicion del primero sin pintar + 1, i < this.cantidadNodos, i++) {
-//				numero de nodo = nodos.get(0).numero de nodo
-//				if(vector de color por nodo en la posicion numero de nodo == 0 && no es adyacente al ultimo pintado) {
-//					poner cant de colres en vector de color [numero de nodo]
-//					ultimo pintado es el nodo que pinte arriba
-//					nodos pintados++
-//					
-//				} else if(no fue pintado aun, es adyacente y es el primero sin pintar de la iteracion) {
-//					posicion del primero sin pintar = i
-//				}
-//			}
-//			
-//		}	
+		int primeroSinPintar = 0, nodosPintados = 0, nroNodo, i = 0;
+		boolean hayPrimeroSinPintar = true, sePuedePintar = true, terminoIteracion = true;
+
+		this.cantidadColores = 1;
 		
-		
+		while(nodosPintados < this.cantidadNodos) {
+			nroNodo = this.nodos.get(i).getNumeroNodo();
+			
+			if(terminoIteracion) {
+				this.colorPorNodo[nroNodo] = cantidadColores;
+				nodosPintados++;
+				hayPrimeroSinPintar = false;
+				
+			} else if(this.colorPorNodo[nroNodo] == 0) { // Esta sin pintar ese nodo?
+				
+				// busco que no sea adyacente a los nodos pintados del color actual
+				for(int j = 0; j < this.cantidadNodos; j++) {
+					
+					// me fijo si tiene el mismo color actual
+					if(this.colorPorNodo[j] == cantidadColores) {
+						
+						//me fijo si es adyacente a ese nodo
+						if(matrizAd.get(j, nroNodo) != 0) {
+							sePuedePintar = false;
+							if(!hayPrimeroSinPintar) {
+								hayPrimeroSinPintar = true;
+								// guardo la posicion de este nodo en la lista de nodos
+								primeroSinPintar = i;
+							}
+							break;
+						} else {
+							sePuedePintar = true;
+						}
+					} else {
+						sePuedePintar = true;
+					}
+				}
+				
+				if(sePuedePintar) {
+					this.colorPorNodo[nroNodo] = cantidadColores;
+					nodosPintados++;
+				}
+			}
+			
+			i++; // Paso al siguiente nodo siempre, haya pintado o no
+			if(i == cantidadNodos && nodosPintados < this.cantidadNodos) {
+				terminoIteracion = true;
+				i = primeroSinPintar;
+				cantidadColores++;
+			} else {
+				terminoIteracion = false;
+			}
+
+		}
 	}
 	
 	private void leerArchivoIn(String nombreArchivo) {

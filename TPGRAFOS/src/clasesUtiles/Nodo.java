@@ -16,6 +16,8 @@ public class Nodo {
 		
 	}
 	
-	
+	public int getNumeroNodo() {
+		return this.numeroNodo;
+	}
 	
 }

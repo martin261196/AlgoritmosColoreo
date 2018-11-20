@@ -44,11 +44,12 @@ public abstract class Generador {
 		return min;
 	}
 	
-	public void generarArchivo(String rutaArchivo) throws FileNotFoundException {
+	public void generarArchivo(String nombreArchivo) throws FileNotFoundException {
 		
 		generar();
 		
-		PrintWriter pw = new PrintWriter(new File(rutaArchivo));
+		PrintWriter pw = new PrintWriter(new File("C:\\Users\\Florencia\\Documents\\Programacion Avanzada"
+				+ "\\TPGRAFOS\\AlgoritmosColoreo\\TPGRAFOS\\Grafos Entrada\\" + nombreArchivo + ".in"));
 		pw.println(this.nodos + " " + this.cantAristas + " " + this.porcAdyacencia + " " + getGradoMax() + " " + getGradoMin());
 		for(int i = 0; i < this.nodos; i++) {
 			for(int j = 0; j < this.nodos; j++) {
