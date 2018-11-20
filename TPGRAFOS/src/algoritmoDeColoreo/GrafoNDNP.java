@@ -16,15 +16,18 @@ public class GrafoNDNP {
 	private int nodos, cantidadColores, cantidadAristas, porcAd, grMax, grMin;
 	
 	public void colorearSecuenciaMatula(String pathGrafo) {
-		
+		generarSecuenciaMatula();
+		colorear();
 	}
 	
 	public void colorearSecuenciaWelshPowell(String pathGrafo) {
-		
+		generarSecuenciaWelshPowell();
+		colorear();
 	}
 	
 	public void colorearSecuenciaAleatoria(String pathGrafo) {
-		
+		generarSecuenciaAleatoria();
+		colorear();
 	}
 	
 	private void colorear() {
@@ -73,6 +76,25 @@ public class GrafoNDNP {
 	}
 	
 	private void generarSecuenciaMatula() {
+		
+		int i, j;
+		for(i = 0 ; i < this.nodos ; i++) {
+			for(j = 0 ; j < this.nodos ; j++) {
+				this.secuencia[i] = this.matrizAd.get(i, j);
+			}
+		}
+		
+		for (i = 0; i < this.secuencia.length; i++) {
+	        for (j = 0; j < this.secuencia.length-i-1; j++) {
+	            if(this.secuencia[i] < this.secuencia[i+1]){
+	                int aux = this.secuencia[i+1];
+	                this.secuencia[i+1] = this.secuencia[i];
+	                this.secuencia[i] = aux;
+	            }
+	        }
+	    }
+		
+		
 		// el vector secuencia llenarlo con los grados de cada nodo recorriendo la matriz de adyacencia.
 		// luego ordeno de menor a mayor. 
 	}
