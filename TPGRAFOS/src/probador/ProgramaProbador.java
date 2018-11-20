@@ -47,24 +47,26 @@ public class ProgramaProbador {
 		try {
 			sc = new Scanner(new File("C:\\Users\\Florencia\\Documents\\Programacion Avanzada"
 					+ "\\TPGRAFOS\\AlgoritmosColoreo\\TPGRAFOS\\Grafos Entrada\\" + this.nombreArchivoGrafo + ".in"));
+			sc.useLocale(Locale.ENGLISH);
+			this.cantidadNodos = sc.nextInt();
+			this.cantidadAristas = sc.nextInt();
+			sc.nextDouble();
+			sc.nextInt(); 
+			sc.nextInt();
+			
+			
+			this.colorPorNodo = new int [this.cantidadNodos];
+			this.matrizAd = new MatrizSimetrica(this.cantidadNodos);
+			
+			for(int i = 0; i < this.cantidadAristas; i++) {
+				matrizAd.set(1, sc.nextInt(), sc.nextInt());
+			}
+			
+			sc.close();	
 		} catch (FileNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
 		
-		this.cantidadNodos = sc.nextInt();
-		this.cantidadAristas = sc.nextInt();
-		sc.nextInt(); 
-		sc.nextInt();
-		sc.nextInt();
-		
-		this.colorPorNodo = new int [this.cantidadNodos];
-		this.matrizAd = new MatrizSimetrica(this.cantidadNodos);
-		
-		for(int i = 0; i < this.cantidadAristas; i++) {
-			matrizAd.set(1, sc.nextInt(), sc.nextInt());
-		}
-		
-		sc.close();	
 	}
 	
 	
@@ -76,13 +78,14 @@ public class ProgramaProbador {
 		try {
 			sc = new Scanner(new File("C:\\Users\\Florencia\\Documents\\Programacion Avanzada"
 					+ "\\TPGRAFOS\\AlgoritmosColoreo\\TPGRAFOS\\Resultados Coloreo\\" + this.nombreArchivoGrafo + ".out"));
+			sc.useLocale(Locale.ENGLISH);
 			if(sc.nextInt() != this.cantidadNodos) {
 				sc.close();
 				respuesta = false;
 			}
 			this.cantidadColores = sc.nextInt();
 			sc.nextInt();
-			sc.nextInt();
+			sc.nextDouble();
 			sc.nextInt();
 			sc.nextInt();
 			for(int i = 0; i < this.cantidadNodos; i++) {

@@ -21,10 +21,10 @@ public abstract class Generador {
 	}
 	
 	
-	public abstract void generar();
+	protected abstract void generar();
 	
 	
-	public int getGradoMax() {
+	private int getGradoMax() {
 		int max = 0;
 		for(int i = 0; i < this.nodos; i++) {
 			if(this.grados[i] > max) {
@@ -34,7 +34,7 @@ public abstract class Generador {
 		return max;
 	}
 	
-	public int getGradoMin() {
+	private int getGradoMin() {
 		int min = this.grados[0];
 		for(int i = 1; i < this.nodos; i++) {
 			if(this.grados[i] < min) {
@@ -44,24 +44,29 @@ public abstract class Generador {
 		return min;
 	}
 	
-	public void generarArchivo(String nombreArchivo) throws FileNotFoundException {
+	public void generarArchivo(String nombreArchivo) {
 		
-		generar();
-		
-		PrintWriter pw = new PrintWriter(new File("C:\\Users\\Florencia\\Documents\\Programacion Avanzada"
-				+ "\\TPGRAFOS\\AlgoritmosColoreo\\TPGRAFOS\\Grafos Entrada\\" + nombreArchivo + ".in"));
-		pw.println(this.nodos + " " + this.cantAristas + " " + this.porcAdyacencia + " " + getGradoMax() + " " + getGradoMin());
-		for(int i = 0; i < this.nodos; i++) {
-			for(int j = 0; j < this.nodos; j++) {
-				if(this.mAdyacencia.get(i, j) == 1) {
-					pw.println(i + " " + j);
+		PrintWriter pw;
+		try {
+			pw = new PrintWriter(new File("C:\\Users\\Florencia\\Documents\\Programacion Avanzada"
+					+ "\\TPGRAFOS\\AlgoritmosColoreo\\TPGRAFOS\\Grafos Entrada\\" + nombreArchivo + ".in"));
+			generar();
+			pw.println(this.nodos + " " + this.cantAristas + " " + this.porcAdyacencia + " " + getGradoMax() + " " + getGradoMin());
+			for(int i = 0; i < nodos; i++) {
+				for(int j = i + 1; j < nodos; j++) {
+					if(this.mAdyacencia.get(i, j) == 1) {
+						pw.println(i + " " + j);
+					}
 				}
 			}
+			pw.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("Ruta incorrecta");
 		}
-		pw.close();
+
 	}
 	
-	public void calcularGradosPorNodos() {
+	protected void calcularGradosPorNodos() {
 		for(int i = 0; i < this.nodos; i++) {
 			for(int j = 0; j < this.nodos; j++) {
 				// Suma 1 cuando existe arista y nada cuando no existe, sin preguntar.
@@ -70,7 +75,7 @@ public abstract class Generador {
 		}
 	}
 	
-	public void calcularCantAristas() {
+	protected void calcularCantAristas() {
 		for(int i = 0; i < this.nodos; i++) {
 			this.cantAristas += this.grados[i];
 		}

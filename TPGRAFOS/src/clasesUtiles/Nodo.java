@@ -1,6 +1,6 @@
 package clasesUtiles;
 
-public class Nodo {
+public class Nodo implements Comparable<Nodo>{
 
 	private int numeroNodo;
 	private int grado;

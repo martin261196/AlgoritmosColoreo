@@ -17,9 +17,9 @@ public class PorcentajeAdyacencia extends Generador{
 
 	@Override
 	public void generar() {
-		int i;
 		
-		for(i = 0 ; i <= nodos - 2 ; i++) {
+		int i;
+		for( i = 0 ; i <= nodos - 2 ; i++) {
 			for(int j = i + 1 ; j <= nodos - 1 ; j++) {
 				this.aristas.add(new Arista(i, j));
 			}

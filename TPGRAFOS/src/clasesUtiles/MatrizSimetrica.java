@@ -8,7 +8,7 @@ public class MatrizSimetrica {
 	
 	public MatrizSimetrica(int dimension) {
 		this.dimension = dimension;
-		this.vec = new int [this.dimension * 2];
+		this.vec = new int [this.dimension * (this.dimension - 1) / 2];
 	}
 	
 	public void set(int valor, int fila, int columna) {
@@ -24,17 +24,17 @@ public class MatrizSimetrica {
 	public int get(int fila, int columna) {
 		if(fila != columna) {
 			if(fila > columna) {
-				return obtenerPosicion(columna, fila);
+				return this.vec[obtenerPosicion(columna, fila)];
 			}
-			return obtenerPosicion(fila, columna);
+			return this.vec[obtenerPosicion(fila, columna)];
 		}
 		return 0; // si fuera true/false retorno false
 	}
 
 	// Funciona con posicion inicial 0,0
 	private int obtenerPosicion(int fila, int columna) {
-		return this.vec[fila * this.dimension + columna - 
-		                (int)((Math.pow(fila,2) + 3 * fila + 2) / 2)];
+		return fila * this.dimension + columna - 
+		                (int)((Math.pow(fila,2) + 3 * fila + 2) / 2);
 	}
 	
 }

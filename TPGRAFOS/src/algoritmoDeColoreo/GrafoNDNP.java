@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Locale;
 import java.util.Scanner;
 
 import clasesUtiles.MatrizSimetrica;
@@ -16,29 +17,36 @@ public class GrafoNDNP {
 	private int [] colorPorNodo;
 	private MatrizSimetrica matrizAd;
 	
-	private int cantidadNodos, cantidadColores, cantidadAristas, porcAd, grMax, grMin;
+	private int cantidadNodos, cantidadColores, cantidadAristas, grMax, grMin;
+	private double porcAd;
 	
-	public int colorearSecuenciaMatula(String pathGrafo) {
-		leerArchivoIn(pathGrafo);
+	public int colorearSecuenciaMatula(String pathGrafo, boolean generarArchivo, boolean leerArchivo) {
+		if(leerArchivo)
+			leerArchivoIn(pathGrafo);
 		generarSecuenciaMatula();
 		colorear();
-		escribirArchivoOut(pathGrafo);
+		if(generarArchivo)
+			escribirArchivoOut(pathGrafo);
 		return this.cantidadColores;
 	}
 	
-	public int colorearSecuenciaWelshPowell(String pathGrafo) {
-		leerArchivoIn(pathGrafo);
+	public int colorearSecuenciaWelshPowell(String pathGrafo, boolean generarArchivo, boolean leerArchivo) {
+		if(leerArchivo)
+			leerArchivoIn(pathGrafo);
 		generarSecuenciaWelshPowell();
 		colorear();
-		escribirArchivoOut(pathGrafo);
+		if(generarArchivo)
+			escribirArchivoOut(pathGrafo);
 		return this.cantidadColores;
 	}
 	
-	public int colorearSecuenciaAleatoria(String pathGrafo) {
-		leerArchivoIn(pathGrafo);
+	public int colorearSecuenciaAleatoria(String pathGrafo, boolean generarArchivo, boolean leerArchivo) {
+		if(leerArchivo)
+			leerArchivoIn(pathGrafo);
 		generarSecuenciaAleatoria();
 		colorear();
-		escribirArchivoOut(pathGrafo);
+		if(generarArchivo)
+			escribirArchivoOut(pathGrafo);
 		return this.cantidadColores;
 	}
 	
@@ -100,33 +108,35 @@ public class GrafoNDNP {
 		}
 	}
 	
-	private void leerArchivoIn(String nombreArchivo) {
+	public void leerArchivoIn(String nombreArchivo) {
 		Scanner sc = null;
 		try {
 			sc = new Scanner(new File("C:\\Users\\Florencia\\Documents\\Programacion Avanzada"
 					+ "\\TPGRAFOS\\AlgoritmosColoreo\\TPGRAFOS\\Grafos Entrada\\" + nombreArchivo + ".in"));
+			sc.useLocale(Locale.ENGLISH);
+			this.cantidadNodos = sc.nextInt();
+			this.cantidadAristas = sc.nextInt();
+			this.porcAd = sc.nextDouble(); 
+			this.grMax = sc.nextInt();
+			this.grMin = sc.nextInt();
+			
+			this.nodos = new ArrayList<>();
+			
+			this.colorPorNodo = new int [this.cantidadNodos];
+			this.matrizAd = new MatrizSimetrica(this.cantidadNodos);
+			
+			for(int i = 0; i < this.cantidadAristas; i++) {
+				matrizAd.set(1, sc.nextInt(), sc.nextInt());
+			}
+			
+			sc.close();	
 		} catch (FileNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
-		this.cantidadNodos = sc.nextInt();
-		this.cantidadAristas = sc.nextInt();
-		this.porcAd = sc.nextInt(); 
-		this.grMax = sc.nextInt();
-		this.grMin = sc.nextInt();
-		
-		this.nodos = new ArrayList<>();
-		
-		this.colorPorNodo = new int [this.cantidadNodos];
-		this.matrizAd = new MatrizSimetrica(this.cantidadNodos);
-		
-		for(int i = 0; i < this.cantidadAristas; i++) {
-			matrizAd.set(1, sc.nextInt(), sc.nextInt());
-		}
-		
-		sc.close();		
+	
 	}
 	
-	private void escribirArchivoOut(String nombreArchivo) {
+	public void escribirArchivoOut(String nombreArchivo) {
 		PrintWriter pw = null;
 		try {
 			pw = new PrintWriter(new File("C:\\Users\\Florencia\\Documents\\Programacion Avanzada"
