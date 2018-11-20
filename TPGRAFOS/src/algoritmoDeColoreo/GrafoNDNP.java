@@ -13,6 +13,7 @@ public class GrafoNDNP {
 	private int [] colorPorNodo;
 	private MatrizSimetrica matrizAd;
 	
+	//Quiero probar algo
 	private int nodos, cantidadColores, cantidadAristas, porcAd, grMax, grMin;
 	
 	public void colorearSecuenciaMatula(String pathGrafo) {
