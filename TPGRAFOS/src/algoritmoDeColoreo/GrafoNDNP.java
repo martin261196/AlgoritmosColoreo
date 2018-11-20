@@ -19,18 +19,24 @@ public class GrafoNDNP {
 	private int cantidadNodos, cantidadColores, cantidadAristas, porcAd, grMax, grMin;
 	
 	public void colorearSecuenciaMatula(String pathGrafo) {
+		leerArchivoIn(pathGrafo);
 		generarSecuenciaMatula();
 		colorear();
+		escribirArchivoOut(pathGrafo);
 	}
 	
 	public void colorearSecuenciaWelshPowell(String pathGrafo) {
+		leerArchivoIn(pathGrafo);
 		generarSecuenciaWelshPowell();
 		colorear();
+		escribirArchivoOut(pathGrafo);
 	}
 	
 	public void colorearSecuenciaAleatoria(String pathGrafo) {
+		leerArchivoIn(pathGrafo);
 		generarSecuenciaAleatoria();
 		colorear();
+		escribirArchivoOut(pathGrafo);
 	}
 	
 	private void colorear() {
