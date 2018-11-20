@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Scanner;
 
@@ -36,6 +35,32 @@ public class GrafoNDNP {
 	
 	private void colorear() {
 		
+		tengo la lista de nodos (numero de nodo y grado)
+		tengo un vector del color por nodo
+		
+		cant de colores en 0
+		posicion del primero sin pintar = 0;
+		
+		while(mientras haya nodos sin pintar) {
+			cant de colores ++
+			
+			poner cant de colores en vector de color [posicion del primero sin pintar] // el primero siempre lo pinto
+			ultimo pintado es el nodo que pinte arriba
+			nodos pintados ++
+			
+			for(i = posicion del primero sin pintar + 1, i < this.cantidadNodos, i++) {
+				numero de nodo = nodos.get(0).numero de nodo
+				if(vector de color por nodo en la posicion numero de nodo == 0 && no es adyacente al ultimo pintado) {
+					poner cant de colres en vector de color [numero de nodo]
+					ultimo pintado es el nodo que pinte arriba
+					nodos pintados++
+					
+				} else if(no fue pintado aun, es adyacente y es el primero sin pintar de la iteracion) {
+					posicion del primero sin pintar = i
+				}
+			}
+			
+		}
 		
 		
 	}
