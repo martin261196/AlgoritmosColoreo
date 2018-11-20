@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Scanner;
 
 import clasesUtiles.MatrizSimetrica;
@@ -80,20 +82,44 @@ public class GrafoNDNP {
 		pw.close();
 	}
 	
+	private void obtenerNodos() {
+		int contador;
+		
+		for(int i = 0; i < this.cantidadNodos; i++) {
+			contador = 0;
+			for(int j = 0; j < this.cantidadNodos; j++) {
+				// Suma 1 cuando existe arista y nada cuando no existe, sin preguntar.
+				contador += this.matrizAd.get(i, j);
+			}
+			
+			this.nodos.add(new Nodo(i, contador));
+		}
+	}
+	
 	private void generarSecuenciaMatula() {
 
+		obtenerNodos();
 		
+		Collections.sort(this.nodos, null);
 		
 		// el vector secuencia llenarlo con los grados de cada nodo recorriendo la matriz de adyacencia.
 		// luego ordeno de menor a mayor. 
 	}
 	
 	private void generarSecuenciaWelshPowell() {
+		
+		obtenerNodos();
+		
+		Collections.sort(this.nodos, Collections.reverseOrder());
 		// el vector secuencia llenarlo con los grados de cada nodo recorriendo la matriz de adyacencia.
 		// luego ordeno de mayor a menor
 	}
 	
 	private void generarSecuenciaAleatoria() {
+		
+		obtenerNodos();
+		
+		Collections.shuffle(this.nodos);
 		// llenar el vector secuencia con los grados de los nodos y despues generar un random como indice para acceder
 		//a la secuencia
 	}
