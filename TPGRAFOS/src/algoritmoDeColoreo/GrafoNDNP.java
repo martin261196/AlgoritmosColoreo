@@ -13,7 +13,6 @@ public class GrafoNDNP {
 	private int [] colorPorNodo;
 	private MatrizSimetrica matrizAd;
 	
-	//Quiero probar algo
 	private int nodos, cantidadColores, cantidadAristas, porcAd, grMax, grMin;
 	
 	public void colorearSecuenciaMatula(String pathGrafo) {
@@ -36,7 +35,7 @@ public class GrafoNDNP {
 		Scanner sc = null;
 		try {
 			sc = new Scanner(new File("C:\\Users\\Florencia\\Documents\\Programacion Avanzada"
-					+ "\\TPGRAFOS\\Grafos Entrada\\" + nombreArchivo + ".in"));
+					+ "\\TPGRAFOS\\AlgoritmosColoreo\\TPGRAFOS\\Grafos Entrada\\" + nombreArchivo + ".in"));
 		} catch (FileNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
@@ -61,7 +60,7 @@ public class GrafoNDNP {
 		PrintWriter pw = null;
 		try {
 			pw = new PrintWriter(new File("C:\\Users\\Florencia\\Documents\\Programacion Avanzada"
-						+ "\\TPGRAFOS\\Resultados Coloreo\\" + nombreArchivo + ".out"));
+					+ "\\TPGRAFOS\\AlgoritmosColoreo\\TPGRAFOS\\Resultados Coloreo\\" + nombreArchivo + ".out"));
 			pw.println(this.nodos + " " + this.cantidadColores + " " + this.cantidadAristas 
 					+ " " + this.porcAd + " " + this.grMax + " " + this.grMin);
 			for(int i = 0 ; i < this.nodos ; i++) {
