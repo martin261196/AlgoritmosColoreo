@@ -9,10 +9,10 @@ import algoritmoDeColoreo.GrafoNDNP;
 public class GeneradorTablasTxt {
 	
 	private int [] cantidadesDeColores;
-	private final int CANTIDADCORRIDAS = 10000;
+	private final int CANTIDADCORRIDAS = 1000;
 	
 	public GeneradorTablasTxt(int nodos) {
-		this.cantidadesDeColores = new int [nodos + 1];
+		this.cantidadesDeColores = new int [nodos];
 	}
 	
 	public void generarTabla(String nombreArchivotxt, String nombreArchivoGrafo, Secuencia secuencia) {
@@ -27,31 +27,31 @@ public class GeneradorTablasTxt {
 		switch (secuencia) {
 		case MATULA:
 			for(int i = 0; i < this.CANTIDADCORRIDAS; i++) {
-				this.cantidadesDeColores[grafo.colorearSecuenciaMatula(nombreArchivoGrafo,false,false)] ++ ;
+				this.cantidadesDeColores[grafo.colorearSecuenciaMatula(nombreArchivoGrafo,false,false) - 1] ++ ;
 			}
 			break;
 		case WELSHPOWELL:
 			for(int i = 0; i < this.CANTIDADCORRIDAS; i++) {
-				this.cantidadesDeColores[grafo.colorearSecuenciaWelshPowell(nombreArchivoGrafo,false,false)] ++ ;
+				this.cantidadesDeColores[grafo.colorearSecuenciaWelshPowell(nombreArchivoGrafo,false,false) - 1] ++ ;
 			}
 			break;
 		case ALEATORIO:
 			for(int i = 0; i < this.CANTIDADCORRIDAS; i++) {
-				this.cantidadesDeColores[grafo.colorearSecuenciaAleatoria(nombreArchivoGrafo,false,false)] ++ ;
+				this.cantidadesDeColores[grafo.colorearSecuenciaAleatoria(nombreArchivoGrafo,false,false) - 1] ++ ;
 			}
 			break;
 		default:
 			break;
 		}
 		
-		
 		try {
 			
 			PrintWriter pw = new PrintWriter(rutaArchivo);
-			int frRelativa = 0;
+			double frRelativa = 0, cantidadDeVeces, corridas = this.CANTIDADCORRIDAS;
 			for(int i = 0; i < this.cantidadesDeColores.length; i++) {
-				frRelativa = this.cantidadesDeColores[i] / this.CANTIDADCORRIDAS;
-				pw.println(i + ";" + frRelativa);
+				cantidadDeVeces = this.cantidadesDeColores[i];
+				frRelativa = cantidadDeVeces / corridas;
+				pw.println((i + 1) + ";" + String.format("%.2f", frRelativa));
 			}
 			
 			pw.close();

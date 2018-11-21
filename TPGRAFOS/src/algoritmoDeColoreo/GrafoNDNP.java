@@ -27,6 +27,8 @@ public class GrafoNDNP {
 		colorear();
 		if(generarArchivo)
 			escribirArchivoOut(pathGrafo);
+		limpiarVector();
+		this.nodos.clear();
 		return this.cantidadColores;
 	}
 	
@@ -37,6 +39,7 @@ public class GrafoNDNP {
 		colorear();
 		if(generarArchivo)
 			escribirArchivoOut(pathGrafo);
+		limpiarVector();
 		return this.cantidadColores;
 	}
 	
@@ -47,13 +50,21 @@ public class GrafoNDNP {
 		colorear();
 		if(generarArchivo)
 			escribirArchivoOut(pathGrafo);
+		limpiarVector();
 		return this.cantidadColores;
 	}
 	
+	private void limpiarVector() {
+		for(int i = 0; i < this.colorPorNodo.length; i++) {
+			this.colorPorNodo[i] = 0;
+		}
+		
+	}
+
 	private void colorear() {
 		
 		int primeroSinPintar = 0, nodosPintados = 0, nroNodo, i = 0;
-		boolean hayPrimeroSinPintar = true, sePuedePintar = true, terminoIteracion = true;
+		boolean hayPrimeroSinPintar = true, sePuedePintar = false, terminoIteracion = true;
 
 		this.cantidadColores = 1;
 		
@@ -113,7 +124,7 @@ public class GrafoNDNP {
 		try {
 			sc = new Scanner(new File("C:\\Users\\Florencia\\Documents\\Programacion Avanzada"
 					+ "\\TPGRAFOS\\AlgoritmosColoreo\\TPGRAFOS\\Grafos Entrada\\" + nombreArchivo + ".in"));
-			sc.useLocale(Locale.ENGLISH);
+//			sc.useLocale(Locale.ENGLISH);
 			this.cantidadNodos = sc.nextInt();
 			this.cantidadAristas = sc.nextInt();
 			this.porcAd = sc.nextDouble(); 
@@ -170,6 +181,8 @@ public class GrafoNDNP {
 
 		obtenerNodos();
 		
+		Collections.shuffle(this.nodos);
+		
 		Collections.sort(this.nodos, null);
 		
 		// el vector secuencia llenarlo con los grados de cada nodo recorriendo la matriz de adyacencia.
@@ -179,6 +192,8 @@ public class GrafoNDNP {
 	private void generarSecuenciaWelshPowell() {
 		
 		obtenerNodos();
+		
+		Collections.shuffle(this.nodos);
 		
 		Collections.sort(this.nodos, Collections.reverseOrder());
 		// el vector secuencia llenarlo con los grados de cada nodo recorriendo la matriz de adyacencia.

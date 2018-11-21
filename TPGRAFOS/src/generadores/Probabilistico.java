@@ -23,7 +23,7 @@ public class Probabilistico extends Generador{
 			for(int j = i ; j < nodos - 1 ; j++) {
 				this.aristas.add(new Arista(i, j));
 			}
-		// Nos quedamos aleatoriamente con algunas segun porcentaje
+		// Nos quedamos aleatoriamente con algunas segun probabilidad
 		for(Arista arista : this.aristas) {
 			double valorRandom = Math.random();
 			if(valorRandom < this.probabilidad) {
@@ -33,10 +33,7 @@ public class Probabilistico extends Generador{
 		
 		calcularGradosPorNodos();
 		calcularCantAristas();
-		
-		this.porcAdyacencia = this.cantAristas / this.aristas.size();
-		
-		
+		calcularPorcentaje();
 	}
 
 }

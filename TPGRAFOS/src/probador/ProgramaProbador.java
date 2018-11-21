@@ -47,7 +47,7 @@ public class ProgramaProbador {
 		try {
 			sc = new Scanner(new File("C:\\Users\\Florencia\\Documents\\Programacion Avanzada"
 					+ "\\TPGRAFOS\\AlgoritmosColoreo\\TPGRAFOS\\Grafos Entrada\\" + this.nombreArchivoGrafo + ".in"));
-			sc.useLocale(Locale.ENGLISH);
+//			sc.useLocale(Locale.ENGLISH);
 			this.cantidadNodos = sc.nextInt();
 			this.cantidadAristas = sc.nextInt();
 			sc.nextDouble();

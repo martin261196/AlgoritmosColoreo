@@ -32,9 +32,7 @@ public class NPartitos extends Generador{
 		
 		calcularGradosPorNodos();
 		calcularCantAristas();
-		
-		this.porcAdyacencia = this.cantAristas / (this.nodos * (this.nodos - 1) / 2);
-		
+		calcularPorcentaje();
 	}
 
 }
